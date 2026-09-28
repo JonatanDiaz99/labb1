@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Labb 1 – Webbshop</title>
+    <title>Produkter – Labb 1</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <main>
-    <h1>Webbshop</h1>
-    <p><a href="${pageContext.request.contextPath}/items">Visa produkter</a></p>
+    <h1>Produkter</h1>
+    <p>Här kommer butikens produkter att visas.</p>
 </main>
 </body>
 </html>

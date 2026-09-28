@@ -1,0 +1,10 @@
+body {
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    margin: 2rem;
+}
+
+main {
+    max-width: 60rem;
+    margin-inline: auto;
+}

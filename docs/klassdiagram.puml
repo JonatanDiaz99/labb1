@@ -1,0 +1,18 @@
+@startuml
+' Startstruktur: endast den befintliga kopplingen till vyn visas.
+' Lägg till attribut, metoder och relationer när funktionerna implementeras.
+package "UI – presentation" {
+    class ItemServlet
+    class ItemInfo
+    artifact "items.jsp" as ItemsView
+}
+package "BO – affärslogik" {
+    class Item
+    class ItemFacade
+}
+package "DB – databasåtkomst" {
+    class ItemDB
+    class DBManager
+}
+ItemServlet ..> ItemsView : forward
+@enduml
