@@ -62,4 +62,19 @@ CREATE TABLE order_items (
         ON DELETE RESTRICT
 );
 
+-- Exempeldata för produktlistan.
+INSERT INTO categories (name)
+VALUES ('Mejeri'), ('Bröd'), ('Frukt och grönt');
+
+INSERT INTO items (name, stock_quantity, price, category_id)
+SELECT v.name, v.stock, v.price, c.id
+FROM (VALUES
+    ('Mjölk 1 liter', 10, 19.90, 'Mejeri'),
+    ('Yoghurt 1 kg', 6, 24.90, 'Mejeri'),
+    ('Fullkornsbröd', 8, 29.90, 'Bröd'),
+    ('Äpplen, påse 1 kg', 12, 34.90, 'Frukt och grönt'),
+    ('Bananer, påse 1 kg', 0, 27.90, 'Frukt och grönt')
+) AS v(name, stock, price, category)
+JOIN categories c ON c.name = v.category;
+
 COMMIT;
