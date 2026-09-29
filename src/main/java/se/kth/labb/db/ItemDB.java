@@ -1,8 +1,7 @@
 package se.kth.labb.db;
 
 /**
- * Databasåtkomst för produkter. Här ska SQL och JDBC-kod ligga när databasen kopplas in.
- * Detta är ett klasskelett; funktionaliteten är ännu inte implementerad.
+ * Hämtar produkter från tabellen items via JDBC.
  */
 
 
@@ -20,8 +19,8 @@ public class ItemDB {
         List<Item> items = new ArrayList<>();
 
         String sql =
-                "SELECT id, name, quantity, price " +
-                        "FROM T_ITEM";
+                "SELECT id, name, stock_quantity, price " +
+                        "FROM items";
 
         try (
                 Connection con = DBManager.getConnection();
@@ -34,7 +33,7 @@ public class ItemDB {
                 Item item = new Item(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("quantity"),
+                        rs.getInt("stock_quantity"),
                         rs.getDouble("price")
                 );
 
