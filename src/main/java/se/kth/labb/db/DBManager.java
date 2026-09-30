@@ -31,12 +31,13 @@ public class DBManager {
 
     private DBManager() {
         try {
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
                     URL,
                     USER,
                     PASSWORD
             );
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
