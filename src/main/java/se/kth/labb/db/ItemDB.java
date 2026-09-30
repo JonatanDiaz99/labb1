@@ -4,16 +4,13 @@ package se.kth.labb.db;
  * Hämtar produkter från tabellen items via JDBC.
  */
 
-
-
 import se.kth.labb.bo.Item;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDB {
-
+    // Item direkt från BO. Kanske inte är så bra...
     public static List<Item> getAll() {
 
         List<Item> items = new ArrayList<>();
@@ -24,17 +21,17 @@ public class ItemDB {
 
         try (
                 Connection con = DBManager.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet resultset = statement.executeQuery()
         ) {
 
-            while (rs.next()) {
+            while (resultset.next()) {
 
                 Item item = new Item(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("stock_quantity"),
-                        rs.getDouble("price")
+                        resultset.getInt("id"),
+                        resultset.getString("name"),
+                        resultset.getInt("stock_quantity"),
+                        resultset.getDouble("price")
                 );
 
                 items.add(item);
