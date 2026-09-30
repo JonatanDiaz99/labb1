@@ -1,5 +1,10 @@
 package se.kth.labb.bo;
 
+import se.kth.labb.db.DBManager;
+import se.kth.labb.db.ItemDB;
+
+import java.util.List;
+
 /**
  * Affärsobjekt för en produkt. Komplettera med produktens egenskaper och regler.
  * Detta är ett klasskelett; funktionaliteten är ännu inte implementerad.
@@ -38,5 +43,9 @@ public class Item {
 
     public double getPrice() {
         return price;
+    }
+
+    public static List<Item> getAll() {
+        return ItemDB.getAll();
     }
 }
