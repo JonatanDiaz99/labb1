@@ -16,7 +16,7 @@ public class ItemFacade {
 
         for (Iterator it = itemList.iterator(); it.hasNext();) {
             Item item = (Item) it.next();
-            infoList.add(new ItemInfo(item.getName(), item.getQuantity(), item.getPrice()));
+            infoList.add(new ItemInfo(item.getName(), item.getQuantity(), item.getPrice(), item.getId()));
         }
         return infoList;
     }

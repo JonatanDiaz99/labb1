@@ -22,8 +22,8 @@ public class DBManager {
     private static final String PASSWORD =
             "secret";
 
-    private static DBManager getInstance() {
-        if(instance == null){
+    private static DBManager getInstance() throws SQLException {
+        if(instance == null || instance.connection.isClosed()){
             instance = new DBManager();
         }
         return instance;
@@ -42,7 +42,7 @@ public class DBManager {
         }
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
        return getInstance().connection;
     }
 }

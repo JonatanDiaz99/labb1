@@ -19,6 +19,7 @@ public class ItemDB {
                 "SELECT id, name, stock_quantity, price " +
                         "FROM items";
 
+
         try (
                 Connection con = DBManager.getConnection();
                 PreparedStatement statement = con.prepareStatement(sql);
