@@ -38,10 +38,9 @@
                     <td>
                         <form action="${pageContext.request.contextPath}/cart"
                               method="post">
-                            <input type="hidden"
-                                   name="itemId"
-                                   value="${item.id}">
-                            <button type="submit" class="add-button">
+                            <input type="hidden" name="itemId" value="${item.id}">
+                            <input type="hidden" name="returnTo" value="item">
+                            <button type="submit" class="add-button" name="action" value="add">
                                 +
                             </button>
                         </form>

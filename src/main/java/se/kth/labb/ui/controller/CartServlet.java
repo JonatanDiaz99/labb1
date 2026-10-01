@@ -36,8 +36,31 @@ public class CartServlet extends HttpServlet {
             httpSession.setAttribute("cartFacade", cartFacade);
         }
 
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            response.sendError(
+                    HttpServletResponse.SC_BAD_REQUEST,
+                    "Handling saknas."
+            );
+            return;
+        }
+
         try {
-            cartFacade.addItem(cartDTO);
+            switch (action) {
+                case "add":
+                    cartFacade.addItem(cartDTO);
+                    break;
+                case "remove":
+                    cartFacade.removeItem(cartDTO);
+                    break;
+                default:
+                    response.sendError(
+                            HttpServletResponse.SC_BAD_REQUEST,
+                            "Okänd handling."
+                    );
+                    return;
+            }
         } catch (IllegalArgumentException e) {
             response.sendError(
                     HttpServletResponse.SC_BAD_REQUEST,
@@ -46,7 +69,13 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        response.sendRedirect(request.getContextPath() + "/items");
+        String returnTo = request.getParameter("returnTo");
+
+        if("cart".equals(returnTo)){
+            response.sendRedirect(request.getContextPath() + "/cart");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/items");
+        }
 
     }
 

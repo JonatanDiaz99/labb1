@@ -24,11 +24,21 @@ public class CartFacade {
         cart.addItem(selectedItem);
     }
 
+    public void removeItem(CartInfo cartInfo) {
+        int itemId = cartInfo.getItemId();
+        Item selectedItem = Item.getItemById(itemId);
+        if (selectedItem == null) {
+            throw new IllegalArgumentException("Produkten hittades inte");
+        }
+        cart.removeItem(selectedItem);
+    }
+
     public List<CartItemInfo> getItems() {
         List<CartItemInfo> cartItemList = new ArrayList<>();
 
         for (CartItem cartItem : cart.getItemsInCart()) {
             CartItemInfo itemInfo = new CartItemInfo(
+                    cartItem.getItem().getId(),
                     cartItem.getItem().getName(),
                     cartItem.getQuantity(),
                     cartItem.getItem().getPrice()
