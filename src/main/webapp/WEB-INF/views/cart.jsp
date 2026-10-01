@@ -25,8 +25,10 @@
       <thead>
       <tr>
         <th scope="col">Namn</th>
-        <th scope="col">Antal</th>
         <th scope="col">Styckpris</th>
+        <th scope="col"></th>
+        <th scope="col">Antal</th>
+        <th scope="col"></th>
       </tr>
       </thead>
 
@@ -34,8 +36,30 @@
       <c:forEach var="cartItem" items="${requestScope.cartItems}">
         <tr>
           <td><c:out value="${cartItem.name}" /></td>
-          <td><c:out value="${cartItem.quantity}" /></td>
           <td><c:out value="${cartItem.price}" /> kr</td>
+
+          <td>
+            <form action="${pageContext.request.contextPath}/cart" method="post">
+              <input type="hidden" name="itemId" value="${cartItem.id}">
+              <input type="hidden" name="returnTo" value="cart">
+              <button class="add-button" type="submit" name="action" value="remove">
+                -
+              </button>
+            </form>
+          </td>
+
+          <td><c:out value="${cartItem.quantity}" /></td>
+
+          <td>
+            <form action="${pageContext.request.contextPath}/cart" method="post">
+              <input type="hidden" name="itemId" value="${cartItem.id}">
+              <input type="hidden" name="returnTo" value="cart">
+              <button class="add-button" type="submit" name="action" value="add">
+                +
+              </button>
+            </form>
+          </td>
+
         </tr>
       </c:forEach>
       </tbody>
@@ -47,6 +71,7 @@
       Fortsätt handla
     </a>
   </p>
+
 </main>
 </body>
 </html>

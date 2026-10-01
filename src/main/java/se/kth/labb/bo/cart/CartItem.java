@@ -25,4 +25,11 @@ public class CartItem {
     public void increaseQuantity() {
         quantity++;
     }
+
+    public void decreaseQuantity() {
+        if(quantity - 1 < 0){
+            return;
+        }
+        quantity--;
+    }
 }

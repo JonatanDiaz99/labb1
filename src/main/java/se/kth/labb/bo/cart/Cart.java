@@ -24,6 +24,17 @@ public class Cart {
         }
     }
 
+    public void removeItem(Item item){
+        int itemId = item.getId();
+        CartItem cartItem = cart.get(itemId);
+
+        if (cartItem == null){
+            cart.put(itemId, new CartItem(item));
+        } else {
+            cartItem.decreaseQuantity();
+        }
+    }
+
     public List<CartItem> getItemsInCart(){
         return List.copyOf(cart.values());
     }
