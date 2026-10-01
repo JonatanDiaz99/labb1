@@ -48,4 +48,8 @@ public class Item {
     public static List<Item> getAll() {
         return ItemDB.getAll();
     }
+
+    public static Item getItemById(int id){
+        return ItemDB.getById(id);
+    }
 }

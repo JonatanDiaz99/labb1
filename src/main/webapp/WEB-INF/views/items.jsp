@@ -13,7 +13,10 @@
 <main>
     <div class="items-header">
         <h1>Produkter</h1>
-        <button type="button" class="cart-button">Kundvagn</button>
+        <a href="${pageContext.request.contextPath}/cart"
+           class="cart-button">
+            Kundvagn
+        </a>
     </div>
     <c:if test="${not empty requestScope.items}">
         <table class="items-table">
@@ -33,9 +36,15 @@
                     <td><c:out value="${item.price}" /> kr</td>
                     <td><c:out value="${item.quantity}" /></td>
                     <td>
-                        <button type="button" class="add-button">
-                            +
-                        </button>
+                        <form action="${pageContext.request.contextPath}/cart"
+                              method="post">
+                            <input type="hidden"
+                                   name="itemId"
+                                   value="${item.id}">
+                            <button type="submit" class="add-button">
+                                +
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>

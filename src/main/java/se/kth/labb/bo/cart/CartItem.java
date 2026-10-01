@@ -1,0 +1,28 @@
+package se.kth.labb.bo.cart;
+
+import se.kth.labb.bo.Item;
+
+public class CartItem {
+    private final Item item;
+    private int quantity;
+
+    /**
+     * When creating a new cartItem we always have a quantity of 1 and then update it accordingly
+     * */
+    public CartItem(Item item) {
+        this.item = item;
+        this.quantity = 1;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void increaseQuantity() {
+        quantity++;
+    }
+}

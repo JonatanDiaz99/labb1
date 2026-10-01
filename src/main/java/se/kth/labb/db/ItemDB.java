@@ -44,4 +44,33 @@ public class ItemDB {
 
         return items;
     }
+
+    public static Item getById(int itemId) {
+        String sql =
+                "SELECT id, name, stock_quantity, price " +
+                        "FROM items " +
+                        "WHERE id = ?";
+
+        try (
+                Connection con = DBManager.getConnection();
+                PreparedStatement statement = con.prepareStatement(sql)
+        ) {
+            // Replaces the statements parameter "?" with the itemId
+            statement.setInt(1, itemId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Item(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("stock_quantity"),
+                            resultSet.getDouble("price")
+                    );
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not fetch item " + itemId, e);
+        }
+    }
 }
