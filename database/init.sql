@@ -77,4 +77,10 @@ FROM (VALUES
 ) AS v(name, stock, price, category)
 JOIN categories c ON c.name = v.category;
 
+INSERT INTO users (name, username, password_hash, role)
+VALUES
+    ('Admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'ADMIN'),
+    ('Warehouse Worker', 'warehouse', 'ae1fd358c7612a02fdc6d923fd40308ebefb0e954c7ddb6f9a8bcdd1f3b00c3b', 'WAREHOUSE'),
+    ('Customer', 'customer', 'b6c45863875e34487ca3c155ed145efe12a74581e27befec5aa661b8ee8ca6dd', 'CUSTOMER');
+
 COMMIT;
