@@ -11,6 +11,7 @@
 <main>
     <h1>Webbshop</h1>
     <p><a href="${pageContext.request.contextPath}/items">Visa produkter</a></p>
+    <p><a href="${pageContext.request.contextPath}/logout">Logga ut</a></p>
 </main>
 </body>
 </html>

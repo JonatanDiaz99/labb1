@@ -18,6 +18,7 @@
             Kundvagn
         </a>
     </div>
+    <p><a href="${pageContext.request.contextPath}/logout">Logga ut</a></p>
     <c:if test="${not empty requestScope.items}">
         <table class="items-table">
             <thead>
