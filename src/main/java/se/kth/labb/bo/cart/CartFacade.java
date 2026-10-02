@@ -1,7 +1,6 @@
 package se.kth.labb.bo.cart;
 
 import se.kth.labb.bo.Item;
-import se.kth.labb.ui.dto.CartInfo;
 import se.kth.labb.ui.dto.CartItemInfo;
 
 import java.util.ArrayList;
@@ -15,8 +14,7 @@ public class CartFacade {
         cart = new Cart();
     }
 
-    public void addItem(CartInfo cartInfo) {
-        int itemId = cartInfo.getItemId();
+    public void addItem(int itemId) {
         Item selectedItem = Item.getItemById(itemId);
         if (selectedItem == null) {
             throw new IllegalArgumentException("Produkten hittades inte");
@@ -24,8 +22,7 @@ public class CartFacade {
         cart.addItem(selectedItem);
     }
 
-    public void removeItem(CartInfo cartInfo) {
-        int itemId = cartInfo.getItemId();
+    public void removeItem(int itemId) {
         Item selectedItem = Item.getItemById(itemId);
         if (selectedItem == null) {
             throw new IllegalArgumentException("Produkten hittades inte");
