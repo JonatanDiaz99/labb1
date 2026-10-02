@@ -1,7 +1,6 @@
 package se.kth.labb.ui.controller;
 
 import se.kth.labb.bo.cart.CartFacade;
-import se.kth.labb.ui.dto.CartInfo;
 import se.kth.labb.ui.dto.CartItemInfo;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +24,6 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        CartInfo cartDTO = new CartInfo(itemId);
-
         HttpSession httpSession = request.getSession();
 
         CartFacade cartFacade = (CartFacade) httpSession.getAttribute("cartFacade");
@@ -49,10 +46,10 @@ public class CartServlet extends HttpServlet {
         try {
             switch (action) {
                 case "add":
-                    cartFacade.addItem(cartDTO);
+                    cartFacade.addItem(itemId);
                     break;
                 case "remove":
-                    cartFacade.removeItem(cartDTO);
+                    cartFacade.removeItem(itemId);
                     break;
                 default:
                     response.sendError(
