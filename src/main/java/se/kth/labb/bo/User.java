@@ -1,6 +1,7 @@
 package se.kth.labb.bo;
 
 import se.kth.labb.db.UserDB;
+import java.util.List;
 
 public class User {
 
@@ -42,7 +43,34 @@ public class User {
         return UserDB.getUser(username);
     }
 
+    public static User findById(int id) {
+        return UserDB.getUserById(id);
+    }
+
+    public static List<User> getAllUsers() {
+        return UserDB.getAllUsers();
+    }
+
     public static User create(String name, String username, String passwordHash, String role) {
         return UserDB.createUser(new User(0, name, username, passwordHash, role));
+    }
+
+    public static User update(int id, String name, String username, String passwordHash, String role) {
+        if (findById(id) == null) {
+            return null;
+        }
+        
+        User user = new User(id, name, username, passwordHash, role);
+        UserDB.updateUser(user);
+        return user;
+    }
+
+    public static User delete(int id) {
+        User user = User.findById(id);
+        if (user == null) {
+            return null;
+        }
+        UserDB.deleteUser(id);
+        return user;
     }
 }
