@@ -46,7 +46,6 @@ public class ItemDB {
         try {
             Connection con = DBManager.getConnection();
             try (PreparedStatement statement = con.prepareStatement(sql)) {
-                // Replaces the statements parameter "?" with the itemId
                 statement.setInt(1, itemId);
 
                 try (ResultSet resultSet = statement.executeQuery()) {
