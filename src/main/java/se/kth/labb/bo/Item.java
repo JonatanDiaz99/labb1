@@ -5,11 +5,6 @@ import se.kth.labb.db.ItemDB;
 
 import java.util.List;
 
-/**
- * Affärsobjekt för en produkt. Komplettera med produktens egenskaper och regler.
- * Detta är ett klasskelett; funktionaliteten är ännu inte implementerad.
- */
-
 public class Item {
 
     private int id;

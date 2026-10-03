@@ -62,7 +62,6 @@ CREATE TABLE order_items (
         ON DELETE RESTRICT
 );
 
--- Exempeldata för produktlistan.
 INSERT INTO categories (name)
 VALUES ('Mejeri'), ('Bröd'), ('Frukt och grönt');
 

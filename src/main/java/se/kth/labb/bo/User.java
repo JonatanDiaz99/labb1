@@ -1,5 +1,7 @@
 package se.kth.labb.bo;
 
+import se.kth.labb.db.UserDB;
+
 public class User {
 
     private final int id;
@@ -34,5 +36,9 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public static User findByUsername(String username) {
+        return UserDB.getUser(username);
     }
 }

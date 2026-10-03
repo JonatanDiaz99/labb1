@@ -1,6 +1,5 @@
 package se.kth.labb.bo;
 
-import se.kth.labb.db.UserDB;
 import se.kth.labb.ui.dto.UserInfo;
 
 import java.nio.charset.StandardCharsets;
@@ -9,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class UserFacade {
     public static UserInfo login(String username, String password) {
-        User user = UserDB.getUser(username);
+        User user = User.findByUsername(username);
         if (user == null || password == null) {
             return null;
         }

@@ -6,9 +6,6 @@ public class CartItem {
     private final Item item;
     private int quantity;
 
-    /**
-     * When creating a new cartItem we always have a quantity of 1 and then update it accordingly
-     * */
     public CartItem(Item item) {
         this.item = item;
         this.quantity = 1;
