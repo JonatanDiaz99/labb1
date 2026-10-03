@@ -18,6 +18,12 @@ public class UserFacade {
         return new UserInfo(user.getId(), user.getName(), user.getUsername(), user.getRole());
     }
 
+    public static UserInfo createUser(String name, String username, String password, String role) {
+        String passwordHash = hashPassword(password);
+        User user = User.create(name, username, passwordHash, role);
+        return new UserInfo(user.getId(), user.getName(), user.getUsername(), user.getRole());
+    }
+
     private static String hashPassword(String password) {
         try {
             byte[] hash = MessageDigest.getInstance("SHA-256")

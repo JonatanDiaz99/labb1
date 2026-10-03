@@ -41,4 +41,8 @@ public class User {
     public static User findByUsername(String username) {
         return UserDB.getUser(username);
     }
+
+    public static User create(String name, String username, String passwordHash, String role) {
+        return UserDB.createUser(new User(0, name, username, passwordHash, role));
+    }
 }
