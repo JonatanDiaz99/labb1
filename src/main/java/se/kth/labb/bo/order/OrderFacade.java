@@ -10,22 +10,21 @@ public class OrderFacade {
         if (itemsInCart == null || itemsInCart.isEmpty()) {
             throw new IllegalArgumentException("Ingen kundvagn hittades");
         }
-        List<OrderRow> orderRows = convertToOrderLines(itemsInCart);
-        Order order = Order.placeOrder(userId, orderRows);
+        List<CartItem> cartItems = convertToCartItems(itemsInCart);
+        Order order = Order.placeOrder(userId, cartItems);
         if (order == null){
             throw new RuntimeException();
         }
     }
 
-    private static List<OrderRow> convertToOrderLines(List<CartItemInfo> itemsInCart) {
-        List<OrderRow> rows = new ArrayList<>();
-
-        for (CartItemInfo item : itemsInCart) {
-            rows.add(new OrderRow(
+    private static List<CartItem> convertToCartItems(List<CartItemInfo> cartItemInfoList) {
+        List<CartItem> cartItems = new ArrayList<>();
+        for (CartItemInfo item : cartItemInfoList) {
+            cartItems.add(new CartItem(
                     item.getId(),
                     item.getQuantity()
             ));
         }
-        return rows;
+        return cartItems;
     }
 }

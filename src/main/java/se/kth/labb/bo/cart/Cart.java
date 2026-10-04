@@ -1,6 +1,7 @@
 package se.kth.labb.bo.cart;
 
 import se.kth.labb.bo.Item;
+import se.kth.labb.bo.order.CartItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +19,10 @@ public class Cart {
         CartItem cartItem = cart.get(itemId);
 
         if (cartItem == null){
-            cart.put(itemId, new CartItem(item));
+            cart.put(itemId, new CartItem(itemId, 1));
         } else {
-            cartItem.increaseQuantity();
+            int quantity = cartItem.quantity() + 1;
+            cart.put(itemId, new CartItem(itemId, quantity));
         }
     }
 
@@ -31,15 +33,15 @@ public class Cart {
         if (cartItem == null) {
             return;
         }
-
-        cartItem.decreaseQuantity();
-
-        if (cartItem.getQuantity() == 0) {
+        if(cartItem.quantity() <= 1) {
             cart.remove(itemId);
+        } else {
+            int quantity = cartItem.quantity() - 1;
+            cart.put(itemId, new CartItem(itemId, quantity));
         }
     }
 
-    public List<CartItem> getItemsInCart(){
+    public List<CartItem> getCartItems(){
         return List.copyOf(cart.values());
     }
 

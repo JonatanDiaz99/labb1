@@ -1,6 +1,7 @@
 package se.kth.labb.bo.cart;
 
 import se.kth.labb.bo.Item;
+import se.kth.labb.bo.order.CartItem;
 import se.kth.labb.ui.dto.CartItemInfo;
 
 import java.util.ArrayList;
@@ -30,20 +31,21 @@ public class CartFacade {
     }
 
     public List<CartItemInfo> getItems() {
-        List<CartItemInfo> cartItemList = new ArrayList<>();
+        List<CartItemInfo> cartItemInfoList = new ArrayList<>();
 
-        for (CartItem cartItem : cart.getItemsInCart()) {
+        for (CartItem cartItem : cart.getCartItems()) {
+            Item item = Item.getItemById(cartItem.itemId());
             CartItemInfo itemInfo = new CartItemInfo(
-                    cartItem.getItem().getId(),
-                    cartItem.getItem().getName(),
-                    cartItem.getQuantity(),
-                    cartItem.getItem().getPrice()
+                    item.getId(),
+                    item.getName(),
+                    cartItem.quantity(),
+                    item.getPrice()
             );
 
-            cartItemList.add(itemInfo);
+            cartItemInfoList.add(itemInfo);
         }
 
-        return cartItemList;
+        return cartItemInfoList;
     }
 
     public boolean isEmpty(){
