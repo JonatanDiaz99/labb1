@@ -12,7 +12,7 @@
 <body>
 <main>
     <div class="items-header">
-        <h1>Produkter</h1>
+        <h1>Webshop</h1>
         <div class="header-actions">
             <c:if test="${sessionScope.user.role == 'ADMIN'}">
                 <a href="${pageContext.request.contextPath}/users"

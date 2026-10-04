@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderFacade {
-    public static boolean placeOrder(long userId, List<CartItemInfo> itemsInCart){
+    public static void placeOrder(long userId, List<CartItemInfo> itemsInCart){
         if (itemsInCart == null || itemsInCart.isEmpty()) {
             throw new IllegalArgumentException("Ingen kundvagn hittades");
         }
@@ -15,7 +15,6 @@ public class OrderFacade {
         if (order == null){
             throw new RuntimeException();
         }
-        return true;
     }
 
     private static List<OrderRow> convertToOrderLines(List<CartItemInfo> itemsInCart) {
@@ -27,7 +26,6 @@ public class OrderFacade {
                     item.getQuantity()
             ));
         }
-
         return rows;
     }
 }
