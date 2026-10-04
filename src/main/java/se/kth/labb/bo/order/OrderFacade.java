@@ -11,10 +11,7 @@ public class OrderFacade {
             throw new IllegalArgumentException("Ingen kundvagn hittades");
         }
         List<CartItem> cartItems = convertToCartItems(itemsInCart);
-        Order order = Order.placeOrder(userId, cartItems);
-        if (order == null){
-            throw new RuntimeException();
-        }
+        Order.placeOrder(userId, cartItems);
     }
 
     private static List<CartItem> convertToCartItems(List<CartItemInfo> cartItemInfoList) {

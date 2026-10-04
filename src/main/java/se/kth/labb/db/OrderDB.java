@@ -14,8 +14,10 @@ public class OrderDB {
 
     public static long placeOrder(long userId, List<CartItem> cartItems) {
         long orderId;
-        try (Connection connection = DBManager.getConnection()){
+        try {
+            Connection connection = DBManager.getConnection();
             connection.setAutoCommit(false);
+
             try {
                 orderId = insertOrder(connection, userId);
                 for (CartItem cartItem : cartItems){
@@ -26,14 +28,20 @@ public class OrderDB {
                     ItemDB.decreaseStock(connection, itemId, quantity);
                     insertOrderItem(connection, orderId, itemId, quantity, price);
                 }
+
                 connection.commit();
+
             } catch (SQLException | RuntimeException e) {
                 connection.rollback();
                 throw new RuntimeException(e);
             }
+
             connection.setAutoCommit(true);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            DBManager.closeConnection();
         }
 
         return orderId;

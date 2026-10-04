@@ -18,7 +18,7 @@ public class DBManager {
             "secret";
 
     private static DBManager getInstance() throws SQLException {
-        if(instance == null || instance.connection.isClosed()){
+        if(instance == null){
             instance = new DBManager();
         }
         return instance;
@@ -39,5 +39,19 @@ public class DBManager {
 
     public static Connection getConnection() throws SQLException {
        return getInstance().connection;
+    }
+
+    public static void closeConnection() {
+        if (instance == null) {
+            return;
+        }
+
+        try {
+            getInstance().connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            instance = null;
+        }
     }
 }

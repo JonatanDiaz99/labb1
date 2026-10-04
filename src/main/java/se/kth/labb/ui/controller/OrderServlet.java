@@ -28,17 +28,17 @@ public class OrderServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        int userId = user.getId();
 
         if (cartFacade == null || cartFacade.isEmpty()) {
             httpSession.setAttribute("orderError", "Lägg till varor för att genomföra beställning");
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
-        List<CartItemInfo> itemsInCart = cartFacade.getItems();
 
         try {
-           OrderFacade.placeOrder(userId, itemsInCart);
+            int userId = user.getId();
+            List<CartItemInfo> itemsInCart = cartFacade.getItems();
+            OrderFacade.placeOrder(userId, itemsInCart);
         } catch (RuntimeException e){
             httpSession.setAttribute("orderError", "Beställning misslyckades");
             response.sendRedirect(request.getContextPath() + "/cart");
