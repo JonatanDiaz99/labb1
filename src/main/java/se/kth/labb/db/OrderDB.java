@@ -13,41 +13,6 @@ import java.util.List;
 
 public class OrderDB {
 
-    public static Order getOrder(long orderId) {
-        String sql = "SELECT id, user_id, created_at, is_packed " +
-            "FROM orders " +
-            "WHERE id = ?";
-
-        try {
-            Connection connection = DBManager.getConnection();
-
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
-
-                statement.setLong(1, orderId);
-
-                try (ResultSet result = statement.executeQuery()) {
-                    if (!result.next()) {
-                        return null;
-                    }
-
-                    return new Order(
-                            BigInteger.valueOf(result.getLong("id")),
-                            BigInteger.valueOf(result.getLong("user_id")),
-                            result.getTimestamp("created_at"),
-                            result.getBoolean("is_packed")
-                    );
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new IllegalStateException(
-                    "Kunde inte hämta order " + orderId,
-                    e
-            );
-        }
-    }
-
     public static long placeOrder(long userId, List<OrderRow> orderRows) {
         long orderId;
         try (Connection connection = DBManager.getConnection()){
@@ -71,6 +36,7 @@ public class OrderDB {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return orderId;
     }
 
@@ -109,6 +75,41 @@ public class OrderDB {
             statement.setInt(3, quantity);
             statement.setDouble(4, price);
             statement.executeUpdate();
+        }
+    }
+
+    public static Order getOrder(long orderId) {
+        String sql = "SELECT id, user_id, created_at, is_packed " +
+                "FROM orders " +
+                "WHERE id = ?";
+
+        try {
+            Connection connection = DBManager.getConnection();
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(sql)) {
+
+                statement.setLong(1, orderId);
+
+                try (ResultSet result = statement.executeQuery()) {
+                    if (!result.next()) {
+                        return null;
+                    }
+
+                    return new Order(
+                            BigInteger.valueOf(result.getLong("id")),
+                            BigInteger.valueOf(result.getLong("user_id")),
+                            result.getTimestamp("created_at"),
+                            result.getBoolean("is_packed")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(
+                    "Kunde inte hämta order " + orderId,
+                    e
+            );
         }
     }
 }

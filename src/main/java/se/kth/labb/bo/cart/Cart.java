@@ -43,6 +43,10 @@ public class Cart {
         return List.copyOf(cart.values());
     }
 
+    public boolean isEmpty(){
+        return cart.isEmpty();
+    }
+
     public void clear() {
         cart.clear();
     }

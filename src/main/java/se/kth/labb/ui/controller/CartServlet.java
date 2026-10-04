@@ -90,15 +90,12 @@ public class CartServlet extends HttpServlet {
         CartFacade cartFacade = (CartFacade) httpSession.getAttribute("cartFacade");
 
         List<CartItemInfo> cartItems = new ArrayList<>();
-
         if (cartFacade != null) {
             cartItems = cartFacade.getItems();
         }
 
         request.setAttribute("cartItems", cartItems);
-
-        request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 
     private void orderError(HttpSession httpSession, HttpServletRequest request){

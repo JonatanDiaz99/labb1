@@ -21,10 +21,8 @@ public class OrderServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession httpSession = request.getSession();
-
         UserInfo user = (UserInfo) httpSession.getAttribute("user");
         CartFacade cartFacade = (CartFacade) httpSession.getAttribute("cartFacade");
-
 
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -32,7 +30,7 @@ public class OrderServlet extends HttpServlet {
         }
         int userId = user.getId();
 
-        if (cartFacade == null) {
+        if (cartFacade == null || cartFacade.isEmpty()) {
             httpSession.setAttribute("orderError", "Lägg till varor för att genomföra beställning");
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
@@ -46,6 +44,7 @@ public class OrderServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
+
         cartFacade.clear();
 
         httpSession.setAttribute(

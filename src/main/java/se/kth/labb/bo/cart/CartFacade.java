@@ -4,7 +4,6 @@ import se.kth.labb.bo.Item;
 import se.kth.labb.ui.dto.CartItemInfo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class CartFacade {
@@ -47,8 +46,8 @@ public class CartFacade {
         return cartItemList;
     }
 
-    public List<CartItem> getOrderItems(){
-        return cart.getItemsInCart();
+    public boolean isEmpty(){
+        return cart.isEmpty();
     }
 
     public void clear() {
