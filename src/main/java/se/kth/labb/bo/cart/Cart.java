@@ -28,14 +28,22 @@ public class Cart {
         int itemId = item.getId();
         CartItem cartItem = cart.get(itemId);
 
-        if (cartItem == null){
-            cart.put(itemId, new CartItem(item));
-        } else {
-            cartItem.decreaseQuantity();
+        if (cartItem == null) {
+            return;
+        }
+
+        cartItem.decreaseQuantity();
+
+        if (cartItem.getQuantity() == 0) {
+            cart.remove(itemId);
         }
     }
 
     public List<CartItem> getItemsInCart(){
         return List.copyOf(cart.values());
+    }
+
+    public void clear() {
+        cart.clear();
     }
 }
