@@ -19,16 +19,8 @@ public class Order {
         this.isPacked = isPacked;
     }
 
-    public static Order placeOrder(long userId, List<CartItem> cartItems){
-        long orderId;
-        Order order;
-        try {
-            orderId = OrderDB.placeOrder(userId, cartItems);
-            order = OrderDB.getOrder(orderId);
-        } catch (RuntimeException e) {
-            throw new IllegalArgumentException();
-        }
-        return order;
+    public static long placeOrder(long userId, List<CartItem> cartItems){
+        return OrderDB.placeOrder(userId, cartItems);
     }
 
     public BigInteger getId() {
