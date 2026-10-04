@@ -12,13 +12,36 @@
   <link rel="stylesheet"
         href="${pageContext.request.contextPath}/css/items.css">
 </head>
+<c:if test="${not empty requestScope.orderSuccess}">
+  <dialog id="order-success"
+          aria-labelledby="order-success-title">
+
+    <h2 id="order-success-title">
+      <c:out value="${requestScope.orderSuccess}" />
+    </h2>
+
+    <form action="${pageContext.request.contextPath}/items"
+          method="get">
+      <button type="submit" autofocus>OK</button>
+    </form>
+  </dialog>
+
+  <script>
+    document.getElementById("order-success").showModal();
+  </script>
+</c:if>
 <body>
 <main>
   <h1>Kundvagn</h1>
-
   <c:if test="${empty requestScope.cartItems}">
     <p>Din kundvagn är tom.</p>
   </c:if>
+
+  <p>
+    <a href="${pageContext.request.contextPath}/items">
+      Fortsätt handla
+    </a>
+  </p>
 
   <c:if test="${not empty requestScope.cartItems}">
     <table class="items-table">
@@ -66,11 +89,20 @@
     </table>
   </c:if>
 
-  <p>
-    <a href="${pageContext.request.contextPath}/items">
-      Fortsätt handla
-    </a>
-  </p>
+  <div class="checkout-actions">
+    <form action="${pageContext.request.contextPath}/orders"
+          method="post">
+      <button type="submit" class="cart-button">
+        Beställ
+      </button>
+    </form>
+  </div>
+
+  <c:if test="${not empty requestScope.orderError}">
+    <p>
+      <c:out value="${requestScope.orderError}" />
+    </p>
+  </c:if>
 
 </main>
 </body>

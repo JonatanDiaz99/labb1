@@ -1,6 +1,7 @@
 package se.kth.labb.ui.controller;
 
 import se.kth.labb.bo.cart.CartFacade;
+import se.kth.labb.ui.dto.CartInfo;
 import se.kth.labb.ui.dto.CartItemInfo;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -83,6 +84,9 @@ public class CartServlet extends HttpServlet {
     ) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
 
+        orderError(httpSession, request);
+        orderSuccess(httpSession, request);
+
         CartFacade cartFacade = (CartFacade) httpSession.getAttribute("cartFacade");
 
         List<CartItemInfo> cartItems = new ArrayList<>();
@@ -95,5 +99,17 @@ public class CartServlet extends HttpServlet {
 
         request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
                 .forward(request, response);
+    }
+
+    private void orderError(HttpSession httpSession, HttpServletRequest request){
+        String orderError = (String) httpSession.getAttribute("orderError");
+        httpSession.removeAttribute("orderError");
+        request.setAttribute("orderError", orderError);
+    }
+
+    private void orderSuccess(HttpSession httpSession, HttpServletRequest request){
+        String orderSuccess = (String) httpSession.getAttribute("orderSuccess");
+        httpSession.removeAttribute("orderSuccess");
+        request.setAttribute("orderSuccess", orderSuccess);
     }
 }

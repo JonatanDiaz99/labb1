@@ -46,4 +46,12 @@ public class CartFacade {
 
         return cartItemList;
     }
+
+    public List<CartItem> getOrderItems(){
+        return cart.getItemsInCart();
+    }
+
+    public void clear() {
+        cart.clear();
+    }
 }

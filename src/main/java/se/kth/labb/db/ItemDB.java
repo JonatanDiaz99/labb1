@@ -1,6 +1,8 @@
 package se.kth.labb.db;
 
 import se.kth.labb.bo.Item;
+
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +64,24 @@ public class ItemDB {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Could not fetch item " + itemId, e);
+        }
+    }
+
+    public static void decreaseStock(Connection connection, int itemId, int quantity) throws SQLException {
+        String sql =    "UPDATE items " +
+                        "SET stock_quantity = stock_quantity - ? " +
+                        "WHERE id = ? AND stock_quantity >= ? ";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, quantity);
+            statement.setInt(2, itemId);
+            statement.setInt(3, quantity);
+
+            int updatedRows = statement.executeUpdate();
+
+            if(updatedRows != 1){
+                throw new IllegalStateException("Kunde inte uppdatera quantity i databasen");
+            }
         }
     }
 }
