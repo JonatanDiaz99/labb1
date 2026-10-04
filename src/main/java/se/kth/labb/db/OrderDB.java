@@ -1,8 +1,7 @@
 package se.kth.labb.db;
 
 import se.kth.labb.bo.order.Order;
-import se.kth.labb.bo.cart.CartItem;
-import se.kth.labb.bo.order.OrderRow;
+import se.kth.labb.bo.order.CartItem;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -13,15 +12,15 @@ import java.util.List;
 
 public class OrderDB {
 
-    public static long placeOrder(long userId, List<OrderRow> orderRows) {
+    public static long placeOrder(long userId, List<CartItem> cartItems) {
         long orderId;
         try (Connection connection = DBManager.getConnection()){
             connection.setAutoCommit(false);
             try {
                 orderId = insertOrder(connection, userId);
-                for (OrderRow row : orderRows){
-                    int itemId = row.itemId();
-                    int quantity = row.quantity();
+                for (CartItem cartItem : cartItems){
+                    int itemId = cartItem.itemId();
+                    int quantity = cartItem.quantity();
                     double price = ItemDB.getById(itemId).getPrice();
 
                     ItemDB.decreaseStock(connection, itemId, quantity);

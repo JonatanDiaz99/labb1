@@ -2,11 +2,11 @@ package se.kth.labb.bo.cart;
 
 import se.kth.labb.bo.Item;
 
-public class CartItem {
+public class CartItemOld {
     private final Item item;
     private int quantity;
 
-    public CartItem(Item item) {
+    public CartItemOld(Item item) {
         this.item = item;
         this.quantity = 1;
     }
