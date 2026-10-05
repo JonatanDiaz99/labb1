@@ -51,10 +51,20 @@ public class UsersServlet extends HttpServlet {
                 if (updated == null) {
                     throw new IllegalArgumentException("Användaren finns inte.");
                 }
+                if (isCurrentUser(request, updated)) {
+                    request.getSession().setAttribute("user", updated);
+                    response.sendRedirect(request.getContextPath() + "/items");
+                    return;
+                }
             } else if ("delete".equals(action)) {
                 UserInfo deleted = UserFacade.deleteUser(id(request));
                 if (deleted == null) {
                     throw new IllegalArgumentException("Användaren finns inte.");
+                }
+                if (isCurrentUser(request, deleted)) {
+                    request.getSession().invalidate();
+                    response.sendRedirect(request.getContextPath() + "/login");
+                    return;
                 }
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Okänd handling.");
@@ -97,6 +107,11 @@ public class UsersServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Ogiltigt användar-id.");
         }
+    }
+
+    private boolean isCurrentUser(HttpServletRequest request, UserInfo user) {
+        UserInfo current = (UserInfo) request.getSession().getAttribute("user");
+        return current.getId() == user.getId();
     }
 
     private boolean isAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
