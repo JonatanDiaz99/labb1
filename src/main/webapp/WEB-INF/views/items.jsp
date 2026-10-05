@@ -43,7 +43,16 @@
                 <tr>
                     <td><c:out value="${item.name}" /></td>
                     <td><c:out value="${item.price}" /> kr</td>
-                    <td><c:out value="${item.quantity}" /></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not item.canAdd}">
+                                -
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${item.quantity}" />
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>
                         <c:if test="${item.canAdd}">
                             <form action="${pageContext.request.contextPath}/cart" method="post">
