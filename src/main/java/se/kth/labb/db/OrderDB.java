@@ -1,9 +1,7 @@
 package se.kth.labb.db;
 
-import se.kth.labb.bo.order.Order;
 import se.kth.labb.bo.order.CartItem;
 
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,41 +80,6 @@ public class OrderDB {
             statement.setInt(3, quantity);
             statement.setDouble(4, price);
             statement.executeUpdate();
-        }
-    }
-
-    public static Order getOrder(long orderId) {
-        String sql = "SELECT id, user_id, created_at, is_packed " +
-                "FROM orders " +
-                "WHERE id = ?";
-
-        try {
-            Connection connection = DBManager.getConnection();
-
-            try (PreparedStatement statement =
-                         connection.prepareStatement(sql)) {
-
-                statement.setLong(1, orderId);
-
-                try (ResultSet result = statement.executeQuery()) {
-                    if (!result.next()) {
-                        return null;
-                    }
-
-                    return new Order(
-                            BigInteger.valueOf(result.getLong("id")),
-                            BigInteger.valueOf(result.getLong("user_id")),
-                            result.getTimestamp("created_at"),
-                            result.getBoolean("is_packed")
-                    );
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new IllegalStateException(
-                    "Kunde inte hämta order " + orderId,
-                    e
-            );
         }
     }
 }
