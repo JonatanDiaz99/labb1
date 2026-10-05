@@ -34,11 +34,14 @@ public class CartFacade {
 
         for (CartItem cartItem : cart.getCartItems()) {
             Item item = Item.getItemById(cartItem.itemId());
+            if (item == null) throw new IllegalStateException("Produkten finns inte i lagret");
+
             CartItemInfo itemInfo = new CartItemInfo(
                     item.getId(),
                     item.getName(),
                     cartItem.quantity(),
-                    item.getPrice()
+                    item.getPrice(),
+                    cart.canAddItem(item)
             );
 
             cartItemInfoList.add(itemInfo);
@@ -53,5 +56,9 @@ public class CartFacade {
 
     public void clear() {
         cart.clear();
+    }
+
+    public boolean canAddItem(Item item){
+        return cart.canAddItem(item);
     }
 }

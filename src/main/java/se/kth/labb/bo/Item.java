@@ -40,6 +40,10 @@ public class Item {
         return price;
     }
 
+    public boolean hasStock(int requestedQuantity) {
+        return requestedQuantity > 0 && requestedQuantity <= quantity;
+    }
+
     public static List<Item> getAll() {
         return ItemDB.getAll();
     }

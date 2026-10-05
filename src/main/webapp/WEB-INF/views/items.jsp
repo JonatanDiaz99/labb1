@@ -45,14 +45,19 @@
                     <td><c:out value="${item.price}" /> kr</td>
                     <td><c:out value="${item.quantity}" /></td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/cart"
-                              method="post">
-                            <input type="hidden" name="itemId" value="${item.id}">
-                            <input type="hidden" name="returnTo" value="item">
-                            <button type="submit" class="add-button" name="action" value="add">
-                                +
-                            </button>
-                        </form>
+                        <c:if test="${item.canAdd}">
+                            <form action="${pageContext.request.contextPath}/cart" method="post">
+                                <input type="hidden" name="itemId" value="${item.id}">
+                                <input type="hidden" name="returnTo" value="item">
+
+                                <button type="submit"
+                                        class="add-button"
+                                        name="action"
+                                        value="add">
+                                    +
+                                </button>
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
