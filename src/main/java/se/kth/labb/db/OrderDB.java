@@ -11,38 +11,31 @@ import java.util.List;
 public class OrderDB {
 
     public static long placeOrder(long userId, List<CartItem> cartItems) {
-        long orderId;
-        try {
-            Connection connection = DBManager.getConnection();
+        try (Connection connection = DBManager.newConnection()) {
             connection.setAutoCommit(false);
 
             try {
-                orderId = insertOrder(connection, userId);
+                long orderId = insertOrder(connection, userId);
                 for (CartItem cartItem : cartItems){
                     int itemId = cartItem.itemId();
                     int quantity = cartItem.quantity();
-                    double price = ItemDB.getById(itemId).getPrice();
+                    double price = ItemDB.getPrice(connection, itemId);
 
                     ItemDB.decreaseStock(connection, itemId, quantity);
                     insertOrderItem(connection, orderId, itemId, quantity, price);
                 }
 
                 connection.commit();
+                return orderId;
 
             } catch (SQLException | RuntimeException e) {
                 connection.rollback();
-                throw new RuntimeException(e);
+                throw e;
             }
-
-            connection.setAutoCommit(true);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            DBManager.closeConnection();
         }
-
-        return orderId;
     }
 
 

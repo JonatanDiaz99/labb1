@@ -67,6 +67,21 @@ public class ItemDB {
         }
     }
 
+    public static double getPrice(Connection connection, int itemId) throws SQLException {
+        String sql = "SELECT price FROM items WHERE id = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, itemId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble("price");
+                }
+                throw new IllegalStateException("Produkten hittades inte");
+            }
+        }
+    }
+
     public static void decreaseStock(Connection connection, int itemId, int quantity) throws SQLException {
         String sql =    "UPDATE items " +
                         "SET stock_quantity = stock_quantity - ? " +
