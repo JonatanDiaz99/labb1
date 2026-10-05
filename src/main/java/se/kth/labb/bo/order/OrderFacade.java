@@ -1,12 +1,13 @@
 package se.kth.labb.bo.order;
 
+import se.kth.labb.bo.cart.CartItem;
 import se.kth.labb.ui.dto.CartItemInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderFacade {
-    public static void placeOrder(long userId, List<CartItemInfo> itemsInCart){
+    public static void placeOrder(int userId, List<CartItemInfo> itemsInCart){
         if (itemsInCart == null || itemsInCart.isEmpty()) {
             throw new IllegalArgumentException("Ingen kundvagn hittades");
         }

@@ -1,6 +1,6 @@
 package se.kth.labb.db;
 
-import se.kth.labb.bo.order.CartItem;
+import se.kth.labb.bo.cart.CartItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class OrderDB {
 
-    public static long placeOrder(long userId, List<CartItem> cartItems) {
+    public static int placeOrder(int userId, List<CartItem> cartItems) {
         try (Connection connection = DBManager.newConnection()) {
             connection.setAutoCommit(false);
 
             try {
-                long orderId = insertOrder(connection, userId);
+                int orderId = insertOrder(connection, userId);
                 for (CartItem cartItem : cartItems){
                     int itemId = cartItem.itemId();
                     int quantity = cartItem.quantity();
@@ -39,15 +39,15 @@ public class OrderDB {
     }
 
 
-    private static Long insertOrder(Connection connection, long userId) throws SQLException {
+    private static int insertOrder(Connection connection, int userId) throws SQLException {
         String sql = "INSERT INTO orders (user_id)" +
                      "VALUES (?) RETURNING id";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setLong(1, userId);
+            statement.setInt(1, userId);
 
             try (ResultSet result = statement.executeQuery()){
                 if(result.next()){
-                    return result.getLong("id");
+                    return result.getInt("id");
                 }
                 else {
                     throw new SQLException("Inget id kunde returneras");
@@ -58,7 +58,7 @@ public class OrderDB {
 
     private static void insertOrderItem(
             Connection connection,
-            long orderId,
+            int orderId,
             int itemId,
             int quantity,
             double price
@@ -68,7 +68,7 @@ public class OrderDB {
                         "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, orderId);
+            statement.setInt(1, orderId);
             statement.setInt(2, itemId);
             statement.setInt(3, quantity);
             statement.setDouble(4, price);
