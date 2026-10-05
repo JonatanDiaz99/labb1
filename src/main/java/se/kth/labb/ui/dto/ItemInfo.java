@@ -5,12 +5,14 @@ public class ItemInfo {
     private int quantity;
     private double price;
     private int id;
+    private final boolean canAdd;
 
-    public ItemInfo(String name, int quantity, double price, int id) {
+    public ItemInfo(String name, int quantity, double price, int id, boolean canAdd) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.id = id;
+        this.canAdd = canAdd;
     }
 
     public String getName() {
@@ -27,5 +29,9 @@ public class ItemInfo {
 
     public int getId(){
         return id;
+    }
+
+    public boolean getCanAdd() {
+        return canAdd;
     }
 }

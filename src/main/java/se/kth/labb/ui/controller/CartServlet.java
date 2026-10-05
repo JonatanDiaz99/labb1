@@ -17,14 +17,14 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int itemId;
+        HttpSession httpSession = request.getSession();
+
         try {
             itemId = Integer.parseInt(request.getParameter("itemId"));
         } catch (NumberFormatException e){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Fel format på itemId");
             return;
         }
-
-        HttpSession httpSession = request.getSession();
 
         CartFacade cartFacade = (CartFacade) httpSession.getAttribute("cartFacade");
 

@@ -74,13 +74,19 @@
           <td><c:out value="${cartItem.quantity}" /></td>
 
           <td>
-            <form action="${pageContext.request.contextPath}/cart" method="post">
-              <input type="hidden" name="itemId" value="${cartItem.id}">
-              <input type="hidden" name="returnTo" value="cart">
-              <button class="add-button" type="submit" name="action" value="add">
-                +
-              </button>
-            </form>
+            <c:if test="${cartItem.canAdd}">
+              <form action="${pageContext.request.contextPath}/cart" method="post">
+                <input type="hidden" name="itemId" value="${cartItem.id}">
+                <input type="hidden" name="returnTo" value="cart">
+
+                <button type="submit"
+                        class="add-button"
+                        name="action"
+                        value="add">
+                  +
+                </button>
+              </form>
+            </c:if>
           </td>
 
         </tr>

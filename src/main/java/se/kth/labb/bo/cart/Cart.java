@@ -14,15 +14,14 @@ public class Cart {
     }
 
     public void addItem(Item item){
-        int itemId = item.getId();
-        CartItem cartItem = cart.get(itemId);
-
-        if (cartItem == null){
-            cart.put(itemId, new CartItem(itemId, 1));
-        } else {
-            int quantity = cartItem.quantity() + 1;
-            cart.put(itemId, new CartItem(itemId, quantity));
+        if(!canAddItem(item)) {
+            throw new IllegalArgumentException("Det finns inte fler i lagret");
         }
+
+        int itemId = item.getId();
+        int quantity = getQuantityInCart(itemId) + 1;
+
+        cart.put(itemId, new CartItem(itemId, quantity));
     }
 
     public void removeItem(Item item){
@@ -50,5 +49,19 @@ public class Cart {
 
     public void clear() {
         cart.clear();
+    }
+
+    public int getQuantityInCart(int itemId) {
+        CartItem cartItem = cart.get(itemId);
+        if (cartItem != null) {
+            return cartItem.quantity();
+        } else {
+            return 0;
+        }
+    }
+
+    public boolean canAddItem(Item item){
+        int requestedQuantity = getQuantityInCart(item.getId()) + 1;
+        return item.hasStock(requestedQuantity);
     }
 }
