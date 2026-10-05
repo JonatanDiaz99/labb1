@@ -1,7 +1,6 @@
 package se.kth.labb.bo.cart;
 
 import se.kth.labb.bo.Item;
-import se.kth.labb.bo.order.CartItem;
 import se.kth.labb.ui.dto.CartItemInfo;
 
 import java.util.ArrayList;
