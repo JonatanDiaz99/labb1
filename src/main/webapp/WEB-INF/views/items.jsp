@@ -13,10 +13,18 @@
 <main>
     <div class="items-header">
         <h1>Produkter</h1>
-        <a href="${pageContext.request.contextPath}/cart"
-           class="cart-button">
-            Kundvagn
-        </a>
+        <div class="header-actions">
+            <c:if test="${sessionScope.user.role == 'ADMIN'}">
+                <a href="${pageContext.request.contextPath}/users"
+                   class="cart-button">
+                    Användare
+                </a>
+            </c:if>
+            <a href="${pageContext.request.contextPath}/cart"
+               class="cart-button">
+                Kundvagn
+            </a>
+        </div>
     </div>
     <p><a href="${pageContext.request.contextPath}/logout">Logga ut</a></p>
     <c:if test="${not empty requestScope.items}">
