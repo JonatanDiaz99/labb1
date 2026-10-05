@@ -1,7 +1,6 @@
 package se.kth.labb.ui.controller;
 
 import se.kth.labb.bo.cart.CartFacade;
-import se.kth.labb.ui.dto.CartInfo;
 import se.kth.labb.ui.dto.CartItemInfo;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
