@@ -17,6 +17,14 @@ public class DBManager {
     private static final String PASSWORD =
             "secret";
 
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+
     private static DBManager getInstance() throws SQLException {
         if(instance == null){
             instance = new DBManager();
@@ -26,13 +34,8 @@ public class DBManager {
 
     private DBManager() {
         try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(
-                    URL,
-                    USER,
-                    PASSWORD
-            );
-        } catch (SQLException | ClassNotFoundException e) {
+            connection = newConnection();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -41,17 +44,7 @@ public class DBManager {
        return getInstance().connection;
     }
 
-    public static void closeConnection() {
-        if (instance == null) {
-            return;
-        }
-
-        try {
-            getInstance().connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            instance = null;
-        }
+    public static Connection newConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
