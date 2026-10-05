@@ -1,8 +1,6 @@
 package se.kth.labb.db;
 
-import se.kth.labb.bo.order.Order;
 import se.kth.labb.bo.cart.CartItem;
-import se.kth.labb.bo.order.OrderRow;
 
 import java.math.BigInteger;
 import java.sql.Connection;

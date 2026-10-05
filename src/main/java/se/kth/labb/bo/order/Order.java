@@ -7,7 +7,7 @@ import se.kth.labb.db.OrderDB;
 import java.util.List;
 
 public class Order {
-    public static int placeOrder(int userId, List<CartItem> cartItems){
+    public static int placeOrder(int userId, List<CartItem> cartItems) {
         for (CartItem cartItem : cartItems) {
             Item item = Item.getItemById(cartItem.itemId());
 
@@ -22,6 +22,7 @@ public class Order {
                         "Lagret räcker inte för " + item.getName()
                 );
             }
+        }
         return OrderDB.placeOrder(userId, cartItems);
     }
 }
