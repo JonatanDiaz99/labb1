@@ -63,7 +63,7 @@ public class UserDB {
         }
     }
 
-    public static void updateUser(User user) {
+    public static User updateUser(User user) {
         String sql = "UPDATE users SET name = ?, username = ?, password_hash = ?, role = ? WHERE id = ?";
         try {
             Connection conn = DBManager.getConnection();
@@ -74,6 +74,7 @@ public class UserDB {
                 stmt.setString(4, user.getRole());
                 stmt.setInt(5, user.getId());
                 stmt.executeUpdate();
+                return user;
             }
         }
         catch (SQLException e) {
